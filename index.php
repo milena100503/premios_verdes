@@ -162,6 +162,8 @@ $pdf->SetXY(0,$pdf->GetY()+10);
 //$pdf->SetX($pdf->GetX()+10);
 //$pdf->writeHTML($utils->format_question("Milena Marin"));
 
+$pdf->writeHTML($utils->format_question("Milena Marin"));
+
 ob_end_clean();
 $pdf->Output('proyecto.pdf', 'I');
 
