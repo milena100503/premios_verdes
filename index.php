@@ -21,23 +21,23 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p1));
 
 $pdf->SetXY(10,$pdf->GetY()+10); 
 
-$tipo_registro = 1;
+$tipo_registro = 2;
 if($tipo_registro ==1){//personal
-	$tb_tipo = '<table cellspacing="0" cellpadding="1" border="1" style="width: 100 %; margin-left: auto; margin-right: auto; margin-top: 50%">';
+	$tb_tipo = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100 %; margin-left: auto; margin-right: auto; margin-top: 50%">';
 	$tb_tipo.= "<tbody>";
 	$tb_tipo.= '<tr>';
-	$tb_tipo.= '<td style="height:25px; color: #FFFFFF; background-color: #000000; display: flex; align-items:center">	<span>'.$etiquetas->inscripcion_p1_op2.'</span></td>';
+	$tb_tipo.= '<td style="height:25px; color: #FFFFFF; background-color: #000000;"> <span>'.$etiquetas->inscripcion_p1_op2.'</span></td>';
 	$tb_tipo.= "<td>".$etiquetas->inscripcion_p1_op1."</td>";
 	$tb_tipo.= "</tr>";
 	$tb_tipo.= "</tbody>";
 	$tb_tipo.= "</table>";
 	$pdf->writeHTML($tb_tipo);
 }else{//organización
-	$tb_tipo = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
+	$tb_tipo = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100 %; margin-left: auto; margin-right: auto; margin-top: 50%">';
 	$tb_tipo.= "<tbody>";
 	$tb_tipo.= "<tr>";
 	$tb_tipo.= "<td>".$etiquetas->inscripcion_p1_op2."</td>";
-	$tb_tipo.= '<td style="color:  #000000; background-color: #BDB7B7;">'.$etiquetas->inscripcion_p1_op1.'</td>';
+	$tb_tipo.= '<td style="height:25px; color: #FFFFFF; background-color: #000000;">'.$etiquetas->inscripcion_p1_op1.'</td>';
 	$tb_tipo.= "</tr>";
 	$tb_tipo.= "</tbody>";
 	$tb_tipo.= "</table>";
@@ -45,53 +45,53 @@ if($tipo_registro ==1){//personal
 
 }
 
-$pdf->SetXY(0,$pdf->GetY()+10);
+$pdf->SetXY(0,$pdf->GetY()+1);
 $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p2_sub2));
 
 
 
-$pdf->SetXY(10,$pdf->GetY()+10);
+$pdf->SetXY(10,$pdf->GetY()+5);
 
-$tb_datos = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
 $tb_datos.= "<tbody>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op2."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>'.$etiquetas->inscripcion_p2_op2.'</span></td>';
 $tb_datos.= "<td>Milena Marin</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op3."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>'.$etiquetas->inscripcion_p2_op3.'</span> </td>';
 $tb_datos.= "<td>milenamarin@gmail.com</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op4."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->inscripcion_p2_op4.'</span></td>';
 $tb_datos.= "<td>No aplica</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op10."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->inscripcion_p2_op10.'</span></td>';
 $tb_datos.= "<td>096145321</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op11."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->inscripcion_p2_op11.'</span></td>';
 $tb_datos.= "<td>La Atarazana</td>";
 $tb_datos.= "</tr>";
 
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op6."</td>";
-$tb_datos.= "<td>milena_marinm</td>";
-$tb_datos.= "</tr>";
+$tb_datos.= '<tr>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->inscripcion_p2_op6.'</span></td>';
+$tb_datos.= '<td>milena_marinm</td>';
+$tb_datos.= '</tr>';
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op7."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->inscripcion_p2_op7.'</span></td>';
 $tb_datos.= "<td>Ecuador</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>".$etiquetas->inscripcion_p2_op8."</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">'.$etiquetas->inscripcion_p2_op8.'</span></td>';
 $tb_datos.= "<td>Guayaquil</td>";
 $tb_datos.= "</tr>";
 
@@ -105,43 +105,43 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p3));
 
 $pdf->SetXY(10,$pdf->GetY()+10);
 
-$tb_datos = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
+$tb_datos = '<table cellspacing="0" cellpadding="1" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
 $tb_datos.= "<tbody>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Facebook</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Facebook</span></td>';
 $tb_datos.= "<td>Milena Marin</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Instagram</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Instagram</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>LinkedIn</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>LinkedIn</span></td>';
 $tb_datos.= "<td></td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Twitter</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Twitter</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Tik Tok</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Tik Tok</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Otra</td>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Otra</span></td>';
 $tb_datos.= "<td></td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "</tbody>";
 $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
-
+$pdf->AddPage();
 
 $pdf->SetXY(0,$pdf->GetY()+10);
 $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p4));
