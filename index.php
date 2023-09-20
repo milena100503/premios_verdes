@@ -50,7 +50,7 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p2_sub2));
 
 
 
-$pdf->SetXY(10,$pdf->GetY()+5);
+$pdf->SetXY(10,$pdf->GetY()+2);
 
 $tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
 $tb_datos.= "<tbody>";
@@ -100,41 +100,41 @@ $tb_datos.= "</tbody>";
 $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
 
-$pdf->SetXY(0,$pdf->GetY()+10);
+$pdf->SetXY(0,$pdf->GetY()+1);
 $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p3));
 
-$pdf->SetXY(10,$pdf->GetY()+10);
+$pdf->SetXY(10,$pdf->GetY()+2);
 
-$tb_datos = '<table cellspacing="0" cellpadding="1" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
 $tb_datos.= "<tbody>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Facebook</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">Facebook</span></td>';
 $tb_datos.= "<td>Milena Marin</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Instagram</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">Instagram</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>LinkedIn</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">LinkedIn</span></td>';
 $tb_datos.= "<td></td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Twitter</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">Twitter</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Tik Tok</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span style="margin-left:100px">Tik Tok</span></td>';
 $tb_datos.= "<td>milena_marinm</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Otra</span></td>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span  style="margin-left:100px">Otra</span></td>';
 $tb_datos.= "<td></td>";
 $tb_datos.= "</tr>";
 
@@ -143,76 +143,459 @@ $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
 $pdf->AddPage();
 
-$pdf->SetXY(0,$pdf->GetY()+10);
+$pdf->SetXY(0,$pdf->GetY()+1);
 $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p4));
 
-$pdf->SetXY(10,$pdf->GetY()+10);
+//$pdf->SetXY(10,$pdf->GetY()+2);
 
-$tb_datos = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
+$tb_datos = "<table cellspacing='0' cellpadding='5' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
 $tb_datos.= "<tbody>";
 
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Correo Electrónico</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Teléfono</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Telegram</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Whatsapp</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
+
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Correo Electrónico',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Teléfono',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Telegram',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Whatsapp',
+            ],
+         ];
+
+       $selectedOptions = ['4'];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + );
+        $pdf->writeHTML($lista_contactos);
+
+
+
+
+
+
+
+
+
+
+
+
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p5));
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+  $options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Redes Sociales de Premios Verdes',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Redes Sociales de Amigos/Organizaciones',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Medios de Comunicación',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Un Mail directo de Premios Verdes',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Un Mail de Organización aliada',
+            ],
+            [
+                'id' => '6',
+                'etiqueta' => 'Publicidad',
+            ],
+            [
+                'id' => '7',
+                'etiqueta' => 'Recomendación',
+            ],
+            [
+                'id' => '8',
+                'etiqueta' => 'Ya es miembro de la comunidad Premios Verdes',
+            ],
+         ];
+
+       $selectedOptions = ['6'];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+
+
+
+
+
+
+
+
+
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p6));
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Privado',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Público',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Tercer Sector',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Alianza Público-Privado',
+            ],
+         ];
+
+       $selectedOptions = ['1'];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+
+
+
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p6_op));
+
+$pdf->SetXY(10,$pdf->GetY()+2);        
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Gran Empresa',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'PYME',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Microempresario',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Emprendedor',
+            ],
+         ];
+
+       $selectedOptions = ['2'];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+
+
 
 
 $pdf->AddPage();
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p7));
 
-$pdf->SetXY(0,$pdf->GetY()+10);
-$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p5));
+$pdf->SetXY(10,$pdf->GetY()+2); 
 
-$pdf->SetXY(10,$pdf->GetY()+10);
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Acuacultura',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Acuaponía',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Agricultura',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Agroecología',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Agroforestería',
+            ],
+            [
+                'id' => '6',
+                'etiqueta' => 'Apicultura',
+            ],
+            [
+                'id' => '7',
+                'etiqueta' => 'Avicultura',
+            ],
+            [
+                'id' => '8',
+                'etiqueta' => 'Ganaderia',
+            ],
+            [
+                'id' => '9',
+                'etiqueta' => 'Pesca',
+            ],
+            [
+                'id' => '10',
+                'etiqueta' => 'Silvicultura',
+            ],
+         ];
 
-$tb_datos = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
+       $selectedOptions = [];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+
+
+
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Extracción de Petroleo',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Minería',
+            ],
+         ];
+
+       $selectedOptions = [];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+      
+
+
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Abonos yfertilizantes',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Accesorios',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Alimentos',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Aparatos Eléctricos',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Artículos para el hogar',
+            ],
+            [
+                'id' => '6',
+                'etiqueta' => 'Bebidas(producción y/o embotellamiento)',
+            ],
+            [
+                'id' => '7',
+                'etiqueta' => 'Construcción/Diseño',
+            ],
+            [
+                'id' => '8',
+                'etiqueta' => 'Electrodomésticos',
+            ],
+            [
+                'id' => '9',
+                'etiqueta' => 'Energía',
+            ],
+            [
+                'id' => '10',
+                'etiqueta' => 'Joyería',
+            ],
+            [
+                'id' => '11',
+                'etiqueta' => 'Licores (producción y/ embotellamiento)',
+            ],
+            [
+                'id' => '12',
+                'etiqueta' => 'Materiales de construcción',
+            ],
+            [
+                'id' => '13',
+                'etiqueta' => 'Materiales e insummos basados del petróleo',
+            ],
+         ];
+
+       $selectedOptions = [];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+$pdf->AddPage();
+
+
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Moda/textiles',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Metalmecanica',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Procesamiento/empaquetamiento',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Reciclaje',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Vehículos',
+            ],
+         ];
+
+       $selectedOptions = [];
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
+
+
+$pdf->SetXY(0,$pdf->GetY()+5);   
+$pdf->writeHTML($utils->format_title($etiquetas->ingreso_proyecto_titulo));
+
+$pdf->SetXY(0,$pdf->GetY()+5); 
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p1));
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
 $tb_datos.= "<tbody>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Redes Sociales de Premios Verdes</td>";
-$tb_datos.= "</tr>";
-
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Redes Sociales de Amigos/Organizaciones</td>";
+$tb_datos.= '<td>Academic Sustainability Research</td>';
+$tb_datos.= "<td>Circular Economy</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Medios de Comunicación</td>";
+$tb_datos.= '<td>Green Tech Startups</td>';
+$tb_datos.= "<td>Habitat and Ecosystem Conservation</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Un Mail directo de Premios Verdes</td>";
+$tb_datos.= '<td>Renewable Energy</td>';
+$tb_datos.= "<td>Resilient Design Architecture</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Un Mail de Organización aliada</td>";
+$tb_datos.= '<td>Sustainable Farming and Food Production</td>';
+$tb_datos.= "<td>Sustainable Fashion</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Publicidad</td>";
+$tb_datos.= '<td>Sustainable Finance</td>';
+$tb_datos.= "<td>Sustainable Human Development</td>";
 $tb_datos.= "</tr>";
 
 $tb_datos.= "<tr>";
-$tb_datos.= "<td>Recomendación</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Ya es miembro de la comunidad Premios Verdes</td>";
+$tb_datos.= '<td>Sustainable Mobility</td>';
 $tb_datos.= "</tr>";
 
 $tb_datos.= "</tbody>";
@@ -220,34 +603,6 @@ $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
 
 
-$pdf->SetXY(0,$pdf->GetY()+10);
-$pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p6));
-
-$pdf->SetXY(10,$pdf->GetY()+10);
-
-$tb_datos = "<table cellspacing='0' cellpadding='1' border='1' style='width: 100 %; margin-left: auto; margin-right: auto;'>";
-$tb_datos.= "<tbody>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Privado</td>";
-$tb_datos.= "</tr>";
-
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Publico</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Tercer Sector</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= "<td>Alianza Público-Privada</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
 
 
 
