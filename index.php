@@ -3,6 +3,8 @@ require_once "tcpdf/TCPDF-main/tcpdf.php";
 require_once "Utils.php";
 require_once "etiquetas.php";
 
+
+
 $utils = new Utils();
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'A4', true, 'UTF-8', false);
 $pdf->setPrintHeader(false);
@@ -11,6 +13,14 @@ $pdf->setPrintFooter(false);
 $pdf->SetMargins(10, 20, 10, true);
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(false, 0);
+
+Header («Content-type image/jpeg»);
+$image = imagecreatefromjpeg(«logo_example.jpg»);
+imagejpg($image);
+		
+
+
+//$img='logo_example.png';
 
 $pdf->SetXY(0,$pdf->GetY()+10);   
 $pdf->writeHTML($utils->format_title($etiquetas->inscripcion_titulo));
@@ -255,9 +265,6 @@ $pdf->SetXY(10,$pdf->GetY()+2);
 
         //$pdf->SetY($pdf->GetY() + 5);
         $pdf->writeHTML($lista_contactos);
-
-
-
 
 
 
@@ -560,10 +567,10 @@ $options = [
         $pdf->writeHTML($lista_contactos);
 
 
-$pdf->SetXY(0,$pdf->GetY()+5);   
+$pdf->SetXY(0,$pdf->GetY()+2);   
 $pdf->writeHTML($utils->format_title($etiquetas->ingreso_proyecto_titulo));
 
-$pdf->SetXY(0,$pdf->GetY()+5); 
+$pdf->SetXY(0,$pdf->GetY()+1); 
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p1));
 
 $tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
@@ -603,7 +610,219 @@ $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
 
 
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p2));
 
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>'.$etiquetas->ingreso_proyecto_p2_op1.'</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>'.$etiquetas->ingreso_proyecto_p2_op2.'</span> </td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->ingreso_proyecto_p2_op3.'</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->ingreso_proyecto_p2_op5.'</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->ingreso_proyecto_p2_op6.'</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= '<tr>';
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->ingreso_proyecto_p2_op7.'</span></td>';
+$tb_datos.= '<td></td>';
+$tb_datos.= '</tr>';
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>'.$etiquetas->ingreso_proyecto_p2_op8.'</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+
+$pdf->SetXY(0,$pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p2_op4));
+
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Facebook</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE;"><span>Instagram</span> </td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>LinkedIn</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>Otra</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+$pdf->AddPage();
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>Snapchat</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>TikTok</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td style="height:25px; background-color: #EEEEEE; display:flex;"><span>Twitter</span></td>';
+$tb_datos.= "<td></td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+
+//En que fase se encuentra tu proyecto?
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p8));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+//
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p3));
+
+$r1="12345";
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer($r1));
+
+//
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p4));
+
+$r2="Un árbol es una planta, de tallo leñoso, que se ramifica a cierta altura del suelo.El término hace referencia habitualmente a aquellas plantas cuya altura supera un determinado límite en la madurez, diferente según las fuentes: dos metros, tres metros, cinco metros o los seis metros.";
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer($r2));
+
+//
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p9));
+
+$r3="Un árbol es una planta, de tallo leñoso, que se ramifica a cierta altura del suelo.";
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer($r3));
+
+
+
+
+$pdf->SetXY(0,$pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p10));
+
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Acuicultura</td>';
+$tb_datos.= "<td>Forestal</td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Agricultura</td>';
+$tb_datos.= "<td>Ganadería</td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Alimentación</td>';
+$tb_datos.= "<td>Industria</td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Ambiente</td>';
+$tb_datos.= "<td>Pesca</td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Artesanías</td>';
+$tb_datos.= "<td>Biodiversidad</td>";
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Biodiversidad</td>';
+$tb_datos.= '<td>Salud</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Bosques</td>';
+$tb_datos.= '<td>Saneamiento</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Comercio</td>';
+$tb_datos.= '<td>Tecnologías de la información</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Construcción</td>';
+$tb_datos.= '<td>Tecnologías de las comunicaciones</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Cultura</td>';
+$tb_datos.= '<td>Transporte</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Desarrollo Humano</td>';
+$tb_datos.= '<td>Turismo</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Educación</td>';
+$tb_datos.= '<td>Energía</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
 
 
 

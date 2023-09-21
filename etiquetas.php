@@ -68,7 +68,7 @@
 	$etiquetas->ingreso_proyecto_p3 = 'Descripción larga del proyecto';
 	$etiquetas->ingreso_proyecto_p3_info = 'La comisión técnica y el jurado internacional evaluarán principalmente los siguientes puntos: Descripción de un  propósito muy claro (qué problema quieres solucionar), identificación de los retos que ha tenido y descripción del problema que busca resolver, resultados que identifiquen claramente el impacto ambiental, social y que consideras relevante resaltar de tu proyecto, a quién va dirigido, cuál es el público objetivo. Asegurate de incluir todas esta información en la descripción';
 	$etiquetas->ingreso_proyecto_p3_text = '(Máximo 5000 caracteres)';
-	$etiquetas->ingreso_proyecto_p4= 'Redacta un resumen ejecutivo del proyecto';
+	$etiquetas->ingreso_proyecto_p4 = 'Redacta un resumen ejecutivo del proyecto';
 	$etiquetas->ingreso_proyecto_p4_info= 'Este resumen ejecutivo será publicado en la página web de Premios Verdes para los proyectos que integren el ranking de los 500 mejores.  Asegurate que está libre de errores de tipeo y gramaticales.  Premios Verdes no se hace responsable por el contenido de esté resumen ejecutivo.';
 	$etiquetas->ingreso_proyecto_p4_text = 'Máximo 650 caracteres';
 	$etiquetas->ingreso_proyecto_archivos= 'Archivos adjuntos';
