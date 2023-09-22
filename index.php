@@ -14,15 +14,18 @@ $pdf->SetMargins(10, 20, 10, true);
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(false, 0);
 
-Header («Content-type image/jpeg»);
-$image = imagecreatefromjpeg(«logo_example.jpg»);
-imagejpg($image);
-		
+
+$pdf->SetXY(15, 10);
+$pdf->Image('logo_premios_verdes.png', 160, 10, 40, 15, 'PNG', '', '', false, 200, '', false, false, 0, false, false, false);
+//$pdf->Image('images/certificado_500M_en_2023.png', 0, 0, 298, 210, 'PNG', '', '', true, 150, '', false, false, 1, false, false, false);
+//Header («Content-type image/jpeg»);
+//$image = imagecreatefromjpeg(«logo_example.jpg»);
+//imagejpg($image);
 
 
 //$img='logo_example.png';
 
-$pdf->SetXY(0,$pdf->GetY()+10);   
+$pdf->SetXY(0,$pdf->GetY()+15);   
 $pdf->writeHTML($utils->format_title($etiquetas->inscripcion_titulo));
 
 $pdf->SetXY(0,$pdf->GetY()+10); 
@@ -198,12 +201,6 @@ $options = [
 
         //$pdf->SetY($pdf->GetY() + );
         $pdf->writeHTML($lista_contactos);
-
-
-
-
-
-
 
 
 
@@ -567,10 +564,10 @@ $options = [
         $pdf->writeHTML($lista_contactos);
 
 
-$pdf->SetXY(0,$pdf->GetY()+2);   
+$pdf->SetXY(0,$pdf->GetY()+1);   
 $pdf->writeHTML($utils->format_title($etiquetas->ingreso_proyecto_titulo));
 
-$pdf->SetXY(0,$pdf->GetY()+1); 
+$pdf->SetXY(10,$pdf->GetY()+2); 
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p1));
 
 $tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
@@ -805,6 +802,17 @@ $tb_datos.= '<td>Construcción</td>';
 $tb_datos.= '<td>Tecnologías de las comunicaciones</td>';
 $tb_datos.= "</tr>";
 
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+
+$pdf->AddPage();
+$pdf->SetXY(10,$pdf->GetY()+2);
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
 $tb_datos.= "<tr>";
 $tb_datos.= '<td>Cultura</td>';
 $tb_datos.= '<td>Transporte</td>';
@@ -815,14 +823,165 @@ $tb_datos.= '<td>Desarrollo Humano</td>';
 $tb_datos.= '<td>Turismo</td>';
 $tb_datos.= "</tr>";
 
+
 $tb_datos.= "<tr>";
 $tb_datos.= '<td>Educación</td>';
+$tb_datos.= '<td>'.$utils->format_answer('Otro: ').'</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
 $tb_datos.= '<td>Energía</td>';
 $tb_datos.= "</tr>";
 
 $tb_datos.= "</tbody>";
 $tb_datos.= "</table>";
 $pdf->writeHTML($tb_datos);
+
+
+
+$pdf->SetXY(10,$pdf->GetY()+2);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p11));
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Falta de información y experiencia en el desarrrollo de proyectos</td>';
+$tb_datos.= '<td>Poca información ciudadana</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Falta integración de actores públicos privados en el sector</td>';
+$tb_datos.= '<td>Poca información publica sobre la problemática</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Informalidad del sector</td>';
+$tb_datos.= '<td>Poco acompañamiento institucional</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Leyes desactualizadas</td>';
+$tb_datos.= '<td>Poco apoyo de la empresa privada</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>'.$utils->format_answer('Otra: ').'</td>';
+$tb_datos.= '<td>Poco interés de los medios por difundir la problemática y/o la solución</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Poca colaboración gubernamental</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+
+//EXPLICA POR QUÉ ESCOGISTE ESTA AMENAZA?
+$pdf->SetXY(0, $pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p11_expl));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+//PRINCIPAL DEBILIDAD
+$pdf->SetXY(0,$pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p12));
+
+$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
+$tb_datos.= "<tbody>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Acceso limitado a información relevante</td>';
+$tb_datos.= '<td>Falta de estandarización y automatización de proyectos</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Falta de acceso a financiamiento</td>';
+$tb_datos.= '<td>Falta de información y experiencia en el desarrollo de proyectos</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Falta de alianzas estratégicas</td>';
+$tb_datos.= '<td>Falta de visión estratégica y liderazgo</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>Falta de desarrollo de capacidades y formación de talento interno</td>';
+$tb_datos.= '<td>Falta de información</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "<tr>";
+$tb_datos.= '<td>'.$utils->format_answer('Otra: ').'</td>';
+$tb_datos.= "</tr>";
+
+$tb_datos.= "</tbody>";
+$tb_datos.= "</table>";
+$pdf->writeHTML($tb_datos);
+
+
+$pdf->AddPage();
+//EXPLICA POR QUÉ ESCOGISTE ESTA DEBILIDAD
+$pdf->SetXY(0, $pdf->GetY()+1);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p11_expl));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+
+//PREMIOS VERDES TRABAJA MUY ALINEADO Y COMPROMETIDOS CON LOS ODS, SELECCIONA LAS TRES METAS DE ODS QUE MÁS SE ALINEAN AL PROYECTO
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p13));
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Para 2030, erradicar la pobreza extrema para todas las personas en el mundo',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Para 2030, reducir al menos a la mitad la proporción de hombres, mujeres y niños de todas las edades que viven en la pobreza en todas sus dimensiones con arreglo a las definiciones nacionales',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => ' Poner en práctica a nivel nacional sistemas y medidas apropiadas de protección social para todos, incluidos niveles mínimos, y, para 2030, lograr una amplia cobertura de los pobres y los vulnerables',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Para 2030, garantizar que todos los hombres y mujeres, en particular los pobres y los vulnerables, tengan los mismos derechos a los recursos económicos, así como acceso a los servicios básicos, la propiedad y el control de las tierras y otros bienes, la herencia, los recursos naturales, las nuevas tecnologías apropiadas y los servicios financieros, incluida la microfinanciación',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Para 2030, fomentar la resiliencia de los pobres y las personas que se encuentran en situaciones vulnerables y reducir su exposición y vulnerabilidad a los fenómenos extremos relacionados con el clima y otras crisis y desastres económicos, sociales y ambientales',
+            ],
+            [
+                'id' => '6',
+                'etiqueta' => 'Garantizar una movilización importante de recursos procedentes de diversas fuentes, incluso mediante la mejora de la cooperación para el desarrollo, a fin de proporcionar medios suficientes y previsibles a los países en desarrollo, en particular los países menos adelantados, para poner en práctica programas y políticas encaminados a poner fin a la pobreza en todas sus dimensiones',
+            ],
+            [
+                'id' => '7',
+                'etiqueta' => 'Garantizar una movilización importante de recursos procedentes de diversas fuentes, incluso mediante la mejora de la cooperación para el desarrollo, a fin de proporcionar medios suficientes y previsibles a los países en desarrollo, en particular los países menos adelantados, para poner en práctica programas y políticas encaminados a poner fin a la pobreza en todas sus dimensiones',
+            ],
+         ];
+
+       $selectedOptions = [1, 3, 6]; 
+
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
+
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
+
+        $lista_contactos .= '</table>';
+
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
 
 
 
