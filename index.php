@@ -570,41 +570,77 @@ $pdf->writeHTML($utils->format_title($etiquetas->ingreso_proyecto_titulo));
 $pdf->SetXY(10,$pdf->GetY()+2); 
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p1));
 
-$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
-$tb_datos.= "<tbody>";
+$options = [
+            [
+                'id' => '1',
+                'etiqueta' => 'Acuacultura',
+            ],
+            [
+                'id' => '2',
+                'etiqueta' => 'Ac',
+            ],
+            [
+                'id' => '3',
+                'etiqueta' => 'Alimentos',
+            ],
+            [
+                'id' => '4',
+                'etiqueta' => 'Aparatos Eléctricos',
+            ],
+            [
+                'id' => '5',
+                'etiqueta' => 'Artículos para el hogar',
+            ],
+            [
+                'id' => '6',
+                'etiqueta' => 'Bebidas(producción y/o embotellamiento)',
+            ],
+            [
+                'id' => '7',
+                'etiqueta' => 'Construcción/Diseño',
+            ],
+            [
+                'id' => '8',
+                'etiqueta' => 'Electrodomésticos',
+            ],
+            [
+                'id' => '9',
+                'etiqueta' => 'Energía',
+            ],
+            [
+                'id' => '10',
+                'etiqueta' => 'Joyería',
+            ],
+            [
+                'id' => '11',
+                'etiqueta' => 'Licores (producción y/ embotellamiento)',
+            ],
+            [
+                'id' => '12',
+                'etiqueta' => 'Materiales de construcción',
+            ],
+            [
+                'id' => '13',
+                'etiqueta' => 'Materiales e insummos basados del petróleo',
+            ],
+         ];
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Academic Sustainability Research</td>';
-$tb_datos.= "<td>Circular Economy</td>";
-$tb_datos.= "</tr>";
+       $selectedOptions = [];
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Green Tech Startups</td>';
-$tb_datos.= "<td>Habitat and Ecosystem Conservation</td>";
-$tb_datos.= "</tr>";
+        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Renewable Energy</td>';
-$tb_datos.= "<td>Resilient Design Architecture</td>";
-$tb_datos.= "</tr>";
+        foreach ($options as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        }
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Sustainable Farming and Food Production</td>';
-$tb_datos.= "<td>Sustainable Fashion</td>";
-$tb_datos.= "</tr>";
+        $lista_contactos .= '</table>';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Sustainable Finance</td>';
-$tb_datos.= "<td>Sustainable Human Development</td>";
-$tb_datos.= "</tr>";
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_contactos);
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Sustainable Mobility</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
 
 
 $pdf->SetXY(0,$pdf->GetY()+1);
@@ -926,7 +962,7 @@ $pdf->writeHTML($tb_datos);
 $pdf->AddPage();
 //EXPLICA POR QUÉ ESCOGISTE ESTA DEBILIDAD
 $pdf->SetXY(0, $pdf->GetY()+1);
-$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p11_expl));
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p12_expl));
 
 $pdf->SetY($pdf->GetY()+5);
 $pdf->writeHTML($utils->format_answer(''));
@@ -983,6 +1019,47 @@ $options = [
         //$pdf->SetY($pdf->GetY() + 5);
         $pdf->writeHTML($lista_contactos);
 
+
+
+//IMAGEN PRINCIPAL (HASTA 20 MB)
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_archivos_img_principal));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+//LOGO (HASTA 3 MB)
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_archivos_img_logo));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+//LINK VIDEO (OPCIONAL)
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_archivos_link_video1));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+$pdf->AddPage();
+//LINK VIDEO 2 (OPCIONAL)
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_archivos_link_video2));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
+
+
+//DOCUMENTO ADICIONAL DE SU PROYECTO (FORMATO PDF-HASTA 20MB, OPCIONAL)
+$pdf->SetXY(0, $pdf->GetY()+10);
+$pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_archivos_pdf));
+
+$pdf->SetY($pdf->GetY()+5);
+$pdf->writeHTML($utils->format_answer(''));
 
 
 //$pdf->writeHTML("<table>");
