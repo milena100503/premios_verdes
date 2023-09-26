@@ -44,6 +44,31 @@ class Catalogos extends Connection{
     public $lista_tipo_industria_energia;
 
     //SUSTAINABLE FINANCE
+    public $lista_enfoques_ambientales_finanzas;
+    public $lista_tipo_organizacion;
+    public $lista_instrumento_financiero;
+    public $lista_instituciones_financieras;
+    public $lista_financiamiento;
+
+    //RESILIENT ARQUITECTURE
+    public $lista_opciones_arquitectura;
+    public $lista_recursos_arquitectura;
+    public $lista_servicios_ambientales;
+
+    //TECH STARTUP
+    public $lista_enfoques_startup;
+    public $lista_productos_servicios;
+    public $lista_tipos_crecimiento;
+
+    //HABITAT AND ECOSYSTEM 
+    public $lista_ecosistemas;
+    public $lista_objetivos_proyhabitat;
+    public $lista_fuentes_agua_dulce;
+    public $lista_enfoques_habitat;
+
+
+
+
 
 
 
@@ -86,7 +111,7 @@ class Catalogos extends Connection{
         $variables = $this->variables();
         $query= "SELECT m.id, m.$variables->nombre FROM perfil_recomendacion m WHERE m.estado = 'A'";
         $result = $this->conn->query($query);
-        $oerfiles = [];
+        $perfiles = [];
         while($reg =  $result -> fetch_object()){
             $perfiles[] = [
                 'id' => $reg->id,
@@ -99,12 +124,17 @@ class Catalogos extends Connection{
 
     function getListaSectorOperativo(){
         $variables = $this->variables();
-        $query= "SELECT a.id_sector_operativo id, a.nombre a.mixto, a.descripcion from sector_operativo a where a.estado = 'A'";
+        $query= "SELECT 
+                so.id_sector_operativo,
+                so.$variables->nombre nombre,
+                so.tipo_participante
+            FROM sector_operativo so
+            WHERE so.estado = 'A'";
         $result = $this->conn->query($query);
         $sectores = [];
         while($reg =  $result -> fetch_object()){
             $sectores[] = [
-                'id' => $reg->id,
+                'id' => $reg->id_sector_operativo,
                 'nombre' => $reg->nombre
             ];
         }
@@ -114,12 +144,21 @@ class Catalogos extends Connection{
 
     function getListaEstructuraJuridicaSectorOP(){
         $variables = $this->variables();
-        $query= "SELECT so.id_sector_operativo so.$variables->nombre so.tipo_participante FROM sector_operativo so WHERE so.estado = 'A'";
+        $query= "SELECT 
+                ej.id_estructura_juridica, 
+                ej.$variables->nombre nombre, 
+                ej.$variables->numero_empleado numero_empleado, 
+                ej.id_sector_operativo,
+                ej.tipo_participante,
+                IF(so.nombre = 'Mixta', 'SI', 'NO') as mixta 
+            FROM estructura_juridica ej
+            LEFT JOIN sector_operativo so ON so.id_sector_operativo = ej.id_sector_operativo
+            WHERE ej.estado = 'A'";
         $result = $this->conn->query($query);
         $estructuras = [];
         while($reg =  $result -> fetch_object()){
             $estructuras[] = [
-                'id' => $reg->id,
+                'id' => $reg->id_estructura_juridica,
                 'nombre' => $reg->nombre
             ];
         }
@@ -137,12 +176,12 @@ class Catalogos extends Connection{
             FROM modelo_operativo a, tipo_modelo_operativo b
             WHERE a.id_tipo_modelo_operativo = b.id_tipo_modelo_operativo
             AND a.id_modelo_operativo <> 30
-            ORDER BY b.id_tipo_modelo_operativo asc, a.$variables->modelo asc";
+            ORDER BY b.id_tipo_modelo_operativo asc, a.$variables->modelo asc;";
         $result = $this->conn->query($query);
         $modelos = [];
         while($reg =  $result -> fetch_object()){
             $modelos[] = [
-                'id' => $reg->id,
+                'id' => $reg->id_modelo_operativo,
                 'nombre' => $reg->nombre
             ];
         }
@@ -151,7 +190,7 @@ class Catalogos extends Connection{
 
     function getListaCategorias(){
         $variables = $this->variables();
-        $query= "SELECT id_categoria as id, nombre as descripcion, icono, estado from categoria where estado = 'A' order by nombre asc";
+        $query= "SELECT id_categoria as id, nombre, nombre as descripcion, icono, estado from categoria where estado = 'A' order by nombre asc";
         $result = $this->conn->query($query);
         $categorias = [];
         while($reg =  $result -> fetch_object()){
@@ -183,7 +222,7 @@ class Catalogos extends Connection{
         $variables = $this->variables();
         $query= "SELECT a.id_actividad id, a.$variables->nombre from actividad_sectorial a where a.estado = 'A';";
         $result = $this->conn->query($query);
-        $actividades = [];
+        $actividades = []; 
         while($reg =  $result -> fetch_object()){
             $escalas[] = [
                 'id' => $reg->id,
@@ -226,7 +265,13 @@ class Catalogos extends Connection{
 
     function getListaODS(){
         $variables = $this->variables();
-        $query= "SELECT id_objetivo_desarrollo_sostenible id, $variables->nombre null id_padre from objetivo_desarrollo_sostenible where estado = 'A' union all select id_meta id, $variables->nombre nombre, id_objetivo_desarrollo_sostenible id_padre from meta_objetivo_desarrollo_sostenible where estado = 'A'";
+        $query= "SELECT id_objetivo_desarrollo_sostenible id, $variables->nombre nombre, null id_padre
+          from objetivo_desarrollo_sostenible
+         where estado = 'A'
+         union all
+        select id_meta id, $variables->nombre nombre, id_objetivo_desarrollo_sostenible id_padre
+          from meta_objetivo_desarrollo_sostenible 
+         where estado = 'A'";
         $result = $this->conn->query($query);
         $ODS = [];
         while($reg =  $result -> fetch_object()){
@@ -297,8 +342,6 @@ class Catalogos extends Connection{
         }
         $this->lista_composicion_ingresos=$composicion;
     }
-
-
 
 
 
@@ -437,10 +480,6 @@ class Catalogos extends Connection{
     }
 
 
-
-
-
-
     function getListaEnfoquesEnergia(){
         $variables = $this->variables();
         $query= "SELECT a.id id, a.$variables->nombre nombre FROM enfoque_energia a where a.estado = 'A' ORDER BY a.$variables->nombre DESC";
@@ -484,6 +523,254 @@ class Catalogos extends Connection{
         }
         $this->lista_tipo_industria_energia=$industria;
     }
+
+
+    function getListaEnfoquesAmbientalesFinanzas(){
+        $variables = $this->variables();
+        $query= "SELECT 
+                a.id_opciones_finanzas_sostenibles id, 
+                a.$variables->nombre nombre, 
+                a.subtipo, 
+                a.tipo 
+            FROM opciones_finanzas_sostenibles a 
+            WHERE a.estado = 'A'
+        ORDER BY a.tipo asc, a.subtipo asc, a.nombre ASC";
+        $result = $this->conn->query($query);
+        $enfoques = [];
+        while($reg =  $result -> fetch_object()){
+            $enfoques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_ambientales_finanzas=$enfoques;
+    }
+
+
+    function getListaTipoOrganizacion(){
+        $variables = $this->variables();
+        $query= "SELECT id, a.$variables->nombre nombre from tipo_organizacion a where estado = 'A'";
+        $result = $this->conn->query($query);
+        $organizacion = [];
+        while($reg =  $result -> fetch_object()){
+            $organizacion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_organizacion=$organizacion;
+    }
+
+
+    function getListaInstrumentoFinanciero(){
+        $variables = $this->variables();
+        $query= "SELECT id, a.$variables->nombre nombre from instrumento_financiero a where estado = 'A'";
+        $result = $this->conn->query($query);
+        $instrumento = [];
+        while($reg =  $result -> fetch_object()){
+            $instrumento[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_instrumento_financiero=$instrumento;
+    }
+
+
+    function getListaInstitucionesFinancieras(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_tipo_institucion_financiera id, a.$variables->nombre nombre from tipo_institucion_financiera a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $instituciones = [];
+        while($reg =  $result -> fetch_object()){
+            $instituciones[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_instituciones_financieras=$instituciones;
+    }
+
+
+    function getListaTipoFinanciamiento(){
+        $variables = $this->variables();
+        $query= "SELECT id_tipo_financiamiento id, $variables->nombre nombre, tipo from tipo_financiamiento where estado = 'A'";
+        $result = $this->conn->query($query);
+        $financiamiento = [];
+        while($reg =  $result -> fetch_object()){
+            $financiamiento[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_financiamiento=$financiamiento;
+    }
+
+
+    function getListaOpcionesArquitectura(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_gestion_urbana_opciones id, a.$variables->nombre nombre, a.id_padre, a.tipo FROM gestion_urbana_opciones a where a.estado = 'A' and  id_gestion_urbana_opciones <> 13";
+        $result = $this->conn->query($query);
+        $opciones = [];
+        while($reg =  $result -> fetch_object()){
+            $opciones[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_opciones_arquitectura=$opciones;
+    }
+
+
+    function getListaRecursosArquitectura(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre FROM recurso_arquitectura a where a.estado = 'A' ORDER BY a.$variables->nombre ASC;";
+        $result = $this->conn->query($query);
+        $recursos = [];
+        while($reg =  $result -> fetch_object()){
+            $recursos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_recursos_arquitectura=$recursos;
+    }
+
+
+    function getListaServiciosAmbientales(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre FROM servicio_ambiental a where a.estado = 'A' ORDER BY a.$variables->nombre DESC";
+        $result = $this->conn->query($query);
+        $servicios = [];
+        while($reg =  $result -> fetch_object()){
+            $servicios[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_servicios_ambientales=$servicios;
+    }
+
+
+    function getListaEnfoquesStartup(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from enfoque_startup a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $enfoques = [];
+        while($reg =  $result -> fetch_object()){
+            $enfoques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_startup=$enfoques;
+    }
+
+
+    function getListaProductosServicios(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from producto_servicio_startup a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $productos = [];
+        while($reg =  $result -> fetch_object()){
+            $productos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_productos_servicios=$productos;
+    }
+
+
+    function getListaTiposCrecimiento(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from tipos_crecimiento a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $crecimiento = [];
+        while($reg =  $result -> fetch_object()){
+            $crecimiento[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipos_crecimiento=$crecimiento;
+    }
+
+
+    function getListaEcosistemas(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre, id_padre from tipos_ecosistemas a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $ecosistemas = [];
+        while($reg =  $result -> fetch_object()){
+            $ecosistemas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_ecosistemas=$ecosistemas;
+    }
+
+
+    function getListaObjetivosProyHabitat(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from objetivo_proy_habitat a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $objetivos = [];
+        while($reg =  $result -> fetch_object()){
+            $objetivos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_objetivos_proyhabitat=$objetivos;
+    }
+
+
+    function getListaFuentesAguaDulce(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from fuente_agua_dulce a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $fuentes = [];
+        while($reg =  $result -> fetch_object()){
+            $fuentes[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_fuentes_agua_dulce=$fuentes;
+    }
+
+
+    function getListaAdiconalidadesCarbono(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from adicionalidad_carbono a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $adicionalidades = [];
+        while($reg =  $result -> fetch_object()){
+            $adicionalidades[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_adicionalidades_carbono=$adicionalidades;
+    }
+
+
+    function getListaEnfoquesHabitat(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from enfoque_habitat a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $habitat = [];
+        while($reg =  $result -> fetch_object()){
+            $habitat[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_habitat=$habitat;
+    }
+
 
 
 

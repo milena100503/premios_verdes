@@ -3,7 +3,7 @@
 	//Local
 	
 	define("DB_HOST","localhost");//ip server
-	define("DB_NAME","opozo_formulario");//database
+	define("DB_NAME","premios_verdes");//database
 	define("DB_USERNAME","root");//user
 	define("DB_PASSWORD", "");//password
 	define("DB_ENCODE","utf8");//encode
