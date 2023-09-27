@@ -65,6 +65,37 @@ class Catalogos extends Connection{
     public $lista_objetivos_proyhabitat;
     public $lista_fuentes_agua_dulce;
     public $lista_enfoques_habitat;
+    public $lista_tipo_especie;
+    public $lista_tipo_fauna;
+    public $lista_tipo_bosques;
+    public $lista_estrategias_incendio_forestal;
+    public $lista_objetivos_agua;
+    public $lista_recurso_hidrico;
+    public $lista_contaminante_agua;
+    public $lista_amenzas_ecosistemas;
+    public $lista_accesos_informacion;
+
+    //SUSTAINABLE FASHION
+    public $lista_enfoques_moda;
+    public $lista_tipo_textil;
+    public $lista_normativa_textil;
+    public $lista_patrones_corte;
+    public $lista_empaques_sostenibles;
+    public $lista_zonas_envio;
+    public $lista_distribucion_producto;
+    public $lista_canales_comunidad;
+
+    //SUSTAINABLE FARMING AND FOOD PRODUCTION
+    public $lista_enfoques_produccion;
+    public $lista_elementos_ambientales;
+    public $lista_empaques_ambientales;
+
+    //SUSTAINABLE MOBILITY
+    public $lista_enfoques_transporte;
+    public $lista_tipo_transporte;
+
+
+
 
 
 
@@ -525,6 +556,7 @@ class Catalogos extends Connection{
     }
 
 
+
     function getListaEnfoquesAmbientalesFinanzas(){
         $variables = $this->variables();
         $query= "SELECT 
@@ -742,7 +774,7 @@ class Catalogos extends Connection{
     }
 
 
-    function getListaAdiconalidadesCarbono(){
+    function getListaAdicionalidadesCarbono(){
         $variables = $this->variables();
         $query= "SELECT a.id id, a.$variables->nombre nombre from adicionalidad_carbono a where a.estado = 'A'";
         $result = $this->conn->query($query);
@@ -770,6 +802,340 @@ class Catalogos extends Connection{
         }
         $this->lista_enfoques_habitat=$habitat;
     }
+
+
+    function getListaTiposEspecie(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from tipos_especie a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $especie = [];
+        while($reg =  $result -> fetch_object()){
+            $especie[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_especie=$especie;
+    }
+
+
+    function getListaTiposFauna(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_tipo_fauna id, a.$variables->nombre nombre from tipo_fauna a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $fauna = [];
+        while($reg =  $result -> fetch_object()){
+            $fauna[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_fauna=$fauna;
+    }
+
+
+    function getListaTiposBosques(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_tipo_bosque id, a.$variables->nombre nombre from tipo_bosque a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $bosques = [];
+        while($reg =  $result -> fetch_object()){
+            $bosques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_bosques=$bosques;
+    }
+
+
+    function getListaEstrategiasIncendioForestal(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from estrategia_incendio_forestal a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $incendios = [];
+        while($reg =  $result -> fetch_object()){
+            $incendios[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_estrategias_incendio_forestal=$incendios;
+    }
+
+
+    function getListaObjetivosAgua(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from objetivo_agua a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $agua = [];
+        while($reg =  $result -> fetch_object()){
+            $agua[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_objetivos_agua=$agua;
+    }
+
+
+
+    function getListaRecursoHidrico(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from recurso_hidrico a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $hidrico = [];
+        while($reg =  $result -> fetch_object()){
+            $hidrico[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_recurso_hidrico=$hidrico;
+    }
+
+
+    function getListaContaminanteAgua(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_contaminante_agua id, a.$variables->nombre nombre from contaminante_agua a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $contaminante = [];
+        while($reg =  $result -> fetch_object()){
+            $contaminante[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_contaminante_agua=$contaminante;
+    }
+
+
+    function getListaAmenzasEcosistema(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from amenaza_ecosistema a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $ecosistemas = [];
+        while($reg =  $result -> fetch_object()){
+            $ecosistemas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_amenzas_ecosistemas=$ecosistemas;
+    }
+
+
+    function getListaAccesosInformacion(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_forma_acceso_informacion id, a.$variables->nombre nombre from forma_acceso_informacion a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $accesos = [];
+        while($reg =  $result -> fetch_object()){
+            $accesos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_accesos_informacion=$accesos;
+    }
+
+
+    function getListaEnfoquesModa(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from enfoque_moda a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $moda = [];
+        while($reg =  $result -> fetch_object()){
+            $moda[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_moda=$moda;
+    }
+
+
+    function getListaTipoTextil(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from tipo_textil a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $textil = [];
+        while($reg =  $result -> fetch_object()){
+            $textil[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_textil=$textil;
+    }
+
+
+    function getListaNormativaTextil(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from normativa_textil a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $normativa = [];
+        while($reg =  $result -> fetch_object()){
+            $normativa[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_normativa_textil=$normativa;
+    }
+
+
+    function getListaPatronesCorte(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from patron_corte a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $patrones = [];
+        while($reg =  $result -> fetch_object()){
+            $patrones[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_patrones_corte=$patrones;
+    }
+
+
+    function getListaEmpaquesSostenibles(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from empaques_sostenibles a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $empaques = [];
+        while($reg =  $result -> fetch_object()){
+            $empaques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_empaques_sostenibles=$empaques;
+    }
+
+
+    function getListaZonasEnvio(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from zona_envio a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $zonas = [];
+        while($reg =  $result -> fetch_object()){
+            $zonas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_zonas_envio=$zonas;
+    }
+
+
+    function getListaDistribucionProducto(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from distribucion_producto a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $distribucion = [];
+        while($reg =  $result -> fetch_object()){
+            $distribucion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_distribucion_producto=$distribucion;
+    }
+
+
+    function getListaCanalesComunidad(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from canal_comunidad a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $canales = [];
+        while($reg =  $result -> fetch_object()){
+            $canales[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_canales_comunidad=$canales;
+    }
+
+
+    function getListaEnfoquesProduccion(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from enfoque_produccion a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $produccion = [];
+        while($reg =  $result -> fetch_object()){
+            $produccion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_produccion=$produccion;
+    }
+
+
+    function getListaElementosAmbientales(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from elemento_ambiental a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $elementos = [];
+        while($reg =  $result -> fetch_object()){
+            $elementos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_elementos_ambientales=$elementos;
+    }
+
+
+    function getListaEmpaquesAmbientales(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from empaque_ambiental a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $empaques = [];
+        while($reg =  $result -> fetch_object()){
+            $empaques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_empaques_ambientales=$empaques;
+    }
+
+
+    function getListaEnfoquesTransporte(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from enfoque_transporte a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $enfoques = [];
+        while($reg =  $result -> fetch_object()){
+            $enfoques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_transporte=$enfoques;
+    }
+
+
+    function getListaTipoTransporte(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from tipo_transporte a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $transporte = [];
+        while($reg =  $result -> fetch_object()){
+            $transporte[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_transporte=$transporte;
+    }
+
+
+
 
 
 

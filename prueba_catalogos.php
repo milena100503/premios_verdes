@@ -4,9 +4,9 @@ require_once "modelos/Catalogos.php";
 $catalogos = new Catalogos();
 
 
-$catalogos->getListaFasesNegocio();
+$catalogos->getListaTipoTransporte();
 
-var_dump($catalogos->lista_fases_negocio);
+var_dump($catalogos->lista_tipo_transporte);
 
 
 
