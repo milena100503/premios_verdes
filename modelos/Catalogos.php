@@ -93,6 +93,51 @@ class Catalogos extends Connection{
     //SUSTAINABLE MOBILITY
     public $lista_enfoques_transporte;
     public $lista_tipo_transporte;
+    public $lista_tipo_vehiculo;
+    public $lista_objetivos_transporte;
+    public $lista_zona_operativa_transporte;
+    public $lista_enfoques_logistica;
+    public $lista_plataformas_digitales;
+    public $lista_tipos_infraestructura;
+
+    //SUSTAINABLE HUMAN DEVELOPMENT
+    public $lista_enfoques_desarrollo_humano;
+    public $lista_nivel_educativo;
+    public $lista_enfoque_educativo;
+    public $lista_tema_educativo;
+    public $lista_grupos_minoritarios;
+    public $lista_enfoques_igualdad;
+    public $lista_enfoques_mujer;
+    public $lista_enfoque_salud;
+    public $lista_enfoque_pobreza;
+    public $lista_enfoque_hambre;
+    public $lista_enfoque_vivienda;
+    public $lista_enfoque_trabajo_decente;
+    public $lista_enfoque_trabajo_verde;
+    public $lista_enfoque_justicia;
+    public $lista_enfoque_agua;
+    public $lista_practica_ancestral;
+
+    //SUSTAINABLE ACADEMIC RESEARCH
+    public $lista_enfoques_investigacion;
+    public $lista_formas_investigacion;
+    public $lista_etapas_investigacion;
+    public $lista_apoyos_investigacion;
+    public $lista_ongs_investigacion;
+    public $lista_estados_publicacion_investigacion;
+    public $lista_fuentes_capitales;
+
+    //CIRCULAR ECONOMY
+    public $lista_enfoques_economia;
+    public $lista_actividades_proyeconomia;
+    public $lista_enfoques_fabricacion;
+    public $lista_enfoques_regeneracion;
+    public $lista_aprovechamiento_residuos;
+    public $lista_tipo_gestion_residuos;
+
+
+
+
 
 
 
@@ -1133,6 +1178,552 @@ class Catalogos extends Connection{
         }
         $this->lista_tipo_transporte=$transporte;
     }
+
+    function getListaTipoVehiculo(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from tipo_vehiculo a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $vehiculo = [];
+        while($reg =  $result -> fetch_object()){
+            $vehiculo[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_vehiculo=$vehiculo;
+    }
+
+
+    function getListaObjetivosTransporte(){
+        $variables = $this->variables();
+        $query= "SELECT  a.id id, a.$variables->nombre nombre from objetivo_proy_transporte a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $objetivos = [];
+        while($reg =  $result -> fetch_object()){
+            $objetivos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_objetivos_transporte=$objetivos;
+    }
+
+
+    function getListaZonaOperativaTransporte(){
+        $variables = $this->variables();
+        $query= "SELECT  a.id id, a.$variables->nombre nombre from zona_operativa a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $zona = [];
+        while($reg =  $result -> fetch_object()){
+            $zona[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_zona_operativa_transporte=$zona;
+    }
+
+
+    function getListaEnfoquesLogistica(){
+        $variables = $this->variables();
+        $query= "SELECT  a.id id, a.$variables->nombre nombre from enfoque_logistica a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $logistica = [];
+        while($reg =  $result -> fetch_object()){
+            $logistica[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_logistica=$logistica;
+    }
+
+
+    function getListaPlataformasDigitales(){
+        $variables = $this->variables();
+        $query= "SELECT  a.id id, a.$variables->nombre nombre from plataforma_digital a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $plataformas = [];
+        while($reg =  $result -> fetch_object()){
+            $plataformas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_plataformas_digitales=$plataformas;
+    }
+
+
+    function getListaTiposInfraestuctura(){
+        $variables = $this->variables();
+        $query= "SELECT  a.id id, a.$variables->nombre nombre from tipo_infraestructura_transporte a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $infraestructura = [];
+        while($reg =  $result -> fetch_object()){
+            $infraestructura[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipos_infraestructura=$infraestructura;
+    }
+
+
+    function getListaEnfoquesDesarrolloHumano(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM enfoque_desarrollo_humano e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $desarrollo = [];
+        while($reg =  $result -> fetch_object()){
+            $desarrollo[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_desarrollo_humano=$desarrollo;
+    }
+
+
+    function getListaNivelEducativo(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM nivel_educativo e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $nivel = [];
+        while($reg =  $result -> fetch_object()){
+            $nivel[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_nivel_educativo=$nivel;
+    }
+
+
+    function getListaEnfoqueEducativo(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM enfoque_educativo e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $enfoque = [];
+        while($reg =  $result -> fetch_object()){
+            $enfoque[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_educativo=$enfoque;
+    }
+
+
+    function getListaTemaEducativo(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM temas_educacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $tema = [];
+        while($reg =  $result -> fetch_object()){
+            $tema[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tema_educativo=$tema;
+    }
+
+
+    function getListaGruposMinoritarios(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM grupo_minoritario e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $grupo = [];
+        while($reg =  $result -> fetch_object()){
+            $grupo[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_grupos_minoritarios=$grupo;
+    }
+
+
+    function getListaEnfoquesIgualdad(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM enfoque_igualdad e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $igualdad = [];
+        while($reg =  $result -> fetch_object()){
+            $igualdad[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_igualdad=$igualdad;
+    }
+
+
+    function getListaEnfoquesMujer(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM enfoque_mujer e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $mujer = [];
+        while($reg =  $result -> fetch_object()){
+            $mujer[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_mujer=$mujer;
+    }
+
+
+    function getListaEnfoqueSalud(){
+        $variables = $this->variables();
+        $query= "SELECT  e.id, e.$variables->nombre nombre FROM enfoque_salud e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $salud = [];
+        while($reg =  $result -> fetch_object()){
+            $salud[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_salud=$salud;
+    }
+
+
+    function getListaEnfoquePobreza(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_pobreza e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $pobreza = [];
+        while($reg =  $result -> fetch_object()){
+            $pobreza[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_pobreza=$pobreza;
+    }
+
+
+    function getListaEnfoqueHambre(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_hambre e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $hambre = [];
+        while($reg =  $result -> fetch_object()){
+            $hambre[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_hambre=$hambre;
+    }
+
+
+    function getListaEnfoqueVivienda(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_vivienda e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $vivienda = [];
+        while($reg =  $result -> fetch_object()){
+            $vivienda[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_vivienda=$vivienda;
+    }
+
+
+    function getListaEnfoqueTrabajoDecente(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_trabajo_decente e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $trabajo = [];
+        while($reg =  $result -> fetch_object()){
+            $trabajo[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_trabajo_decente=$trabajo;
+    }
+
+
+    function getListaEnfoqueTrabajoVerde(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_trabajo_verde e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $verde = [];
+        while($reg =  $result -> fetch_object()){
+            $verde[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_trabajo_verde=$verde;
+    }
+
+
+    function getListaEnfoqueJusticia(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_justicia e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $justicia = [];
+        while($reg =  $result -> fetch_object()){
+            $justicia[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_justicia=$justicia;
+    }
+
+
+    function getListaEnfoqueAgua(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_agua e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $agua = [];
+        while($reg =  $result -> fetch_object()){
+            $agua[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoque_agua=$agua;
+    }
+
+
+    function getListaPracticaAncestral(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM practica_ancestral e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $practica = [];
+        while($reg =  $result -> fetch_object()){
+            $practica[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_practica_ancestral=$practica;
+    }
+
+
+    function getListaEnfoquesInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $investigacion = [];
+        while($reg =  $result -> fetch_object()){
+            $investigacion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_investigacion=$investigacion;
+    }
+
+
+    function getListaFormasInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM forma_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $formas = [];
+        while($reg =  $result -> fetch_object()){
+            $formas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_formas_investigacion=$formas;
+    }
+
+
+    function getListaEtapasInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM etapa_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $etapas = [];
+        while($reg =  $result -> fetch_object()){
+            $etapas[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_etapas_investigacion=$etapas;
+    }
+
+
+    function getListaApoyosInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM apoyo_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $apoyos = [];
+        while($reg =  $result -> fetch_object()){
+            $apoyos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_apoyos_investigacion=$apoyos;
+    }
+
+
+    function getListaOngsInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM ong_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $ongs = [];
+        while($reg =  $result -> fetch_object()){
+            $ongs[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_ongs_investigacion=$ongs;
+    }
+
+
+    function getListaEstadosPublicacionInvestigacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM estado_publicacion_investigacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $estados = [];
+        while($reg =  $result -> fetch_object()){
+            $estados[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_estados_publicacion_investigacion=$estados;
+    }
+
+
+    function getListaFuentesCapitales(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from fuente_capital a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $fuentes = [];
+        while($reg =  $result -> fetch_object()){
+            $fuentes[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_fuentes_capitales=$fuentes;
+    }
+
+
+    function getListaEnfoquesEconomia(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_economia e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $economia = [];
+        while($reg =  $result -> fetch_object()){
+            $economia[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_economia=$economia;
+    }
+
+
+    function getListaActividadesProyEconomia(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM actividad_proy_economia e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $actividades = [];
+        while($reg =  $result -> fetch_object()){
+            $actividades[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_actividades_proyeconomia=$actividades;
+    }
+
+
+    function getListaEnfoquesFabricacion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_fabricacion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $fabricacion = [];
+        while($reg =  $result -> fetch_object()){
+            $fabricacion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_fabricacion=$fabricacion;
+    }
+
+
+    function getListaEnfoquesRegeneracion(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM enfoque_regeneracion e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $regeneracion = [];
+        while($reg =  $result -> fetch_object()){
+            $regeneracion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_enfoques_regeneracion=$regeneracion;
+    }
+
+
+    function getListaAprovechamientoResiduos(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM aprovechamiento_residuo e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $aprovechamiento = [];
+        while($reg =  $result -> fetch_object()){
+            $aprovechamiento[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_aprovechamiento_residuos=$aprovechamiento;
+    }
+
+
+    function getListaTipoGestionResiduos(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre, e.id_padre FROM tipo_gestion_residuo e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $gestion = [];
+        while($reg =  $result -> fetch_object()){
+            $gestion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_gestion_residuos=$gestion;
+    }
+
+
+    function getListaProcesosReciclajes(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM proceso_reciclaje e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $procesos = [];
+        while($reg =  $result -> fetch_object()){
+            $procesos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_procesos_reciclajes=$procesos;
+    }
+
+
+
+
+
+
+
 
 
 

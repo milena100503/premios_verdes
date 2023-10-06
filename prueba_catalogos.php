@@ -4,9 +4,9 @@ require_once "modelos/Catalogos.php";
 $catalogos = new Catalogos();
 
 
-$catalogos->getListaTipoTransporte();
+$catalogos->getListaProcesosReciclajes();
 
-var_dump($catalogos->lista_tipo_transporte);
+var_dump($catalogos->lista_procesos_reciclajes);
 
 
 
