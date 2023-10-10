@@ -64,10 +64,12 @@ class Catalogos extends Connection{
     public $lista_ecosistemas;
     public $lista_objetivos_proyhabitat;
     public $lista_fuentes_agua_dulce;
+    public $lista_adicionalidades_carbono;
     public $lista_enfoques_habitat;
     public $lista_tipo_especie;
     public $lista_tipo_fauna;
     public $lista_tipo_bosques;
+    public $lista_clases_bosques;
     public $lista_estrategias_incendio_forestal;
     public $lista_objetivos_agua;
     public $lista_recurso_hidrico;
@@ -134,15 +136,9 @@ class Catalogos extends Connection{
     public $lista_enfoques_regeneracion;
     public $lista_aprovechamiento_residuos;
     public $lista_tipo_gestion_residuos;
-
-
-
-
-
-
-
-
-
+    public $lista_producto_final;
+    public $lista_actores_proyecto;
+    public $lista_origen_residuos;
 
 
 
@@ -154,6 +150,7 @@ class Catalogos extends Connection{
    }
 
     function getListaMediosContacto(){
+
         $variables = $this->variables();
         $query = "SELECT m.id, m.$variables->nombre nombre FROM medio_contacto m WHERE m.estado = 'A'";
         $result = $this->conn->query($query);
@@ -169,6 +166,7 @@ class Catalogos extends Connection{
 
 
     function getListaDifusion(){
+
         $variables = $this->variables();
         $query= "SELECT id_difusion id, $variables->nombre from tipo_difusion where estado = 'A'";
         $result = $this->conn->query($query);
@@ -184,6 +182,7 @@ class Catalogos extends Connection{
 
 
     function getListaPerfilesRecomendacion(){
+
         $variables = $this->variables();
         $query= "SELECT m.id, m.$variables->nombre FROM perfil_recomendacion m WHERE m.estado = 'A'";
         $result = $this->conn->query($query);
@@ -199,6 +198,7 @@ class Catalogos extends Connection{
 
 
     function getListaSectorOperativo(){
+
         $variables = $this->variables();
         $query= "SELECT 
                 so.id_sector_operativo,
@@ -219,6 +219,7 @@ class Catalogos extends Connection{
 
 
     function getListaEstructuraJuridicaSectorOP(){
+
         $variables = $this->variables();
         $query= "SELECT 
                 ej.id_estructura_juridica, 
@@ -243,6 +244,7 @@ class Catalogos extends Connection{
 
 
     function getListaModeloOperativo(){
+
         $variables = $this->variables();
         $query= "SELECT 
             a.id_modelo_operativo id, 
@@ -892,6 +894,22 @@ class Catalogos extends Connection{
         }
         $this->lista_tipo_bosques=$bosques;
     }
+
+
+    function getListaClasesBosques(){
+        $variables = $this->variables();
+        $query= "SELECT a.id id, a.$variables->nombre nombre from clases_bosque a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $bosques = [];
+        while($reg =  $result -> fetch_object()){
+            $bosques[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_clases_bosques=$bosques;
+    }
+
 
 
     function getListaEstrategiasIncendioForestal(){
@@ -1719,10 +1737,267 @@ class Catalogos extends Connection{
     }
 
 
+    function getListaProductoFinal(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM producto_final e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $producto = [];
+        while($reg =  $result -> fetch_object()){
+            $producto[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_producto_final=$producto;
+    }
+
+
+    function getListaActoresProyecto(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM actor_proyecto e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $proyecto = [];
+        while($reg =  $result -> fetch_object()){
+            $proyecto[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_actores_proyecto=$proyecto;
+    }
+
+
+    function getListaOrigenResiduos(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_origen_residuo id, a.$variables->nombre nombre FROM origen_residuo a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $origen = [];
+        while($reg =  $result -> fetch_object()){
+            $origen[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_origen_residuos=$origen;
+    }
+
+
+    function getListaCompuestoResiduos(){
+        $variables = $this->variables();
+        $query= "SELECT a.id_compuesto_residuo id, a.$variables->nombre nombre fROM compuesto_residuo a where a.estado = 'A'";
+        $result = $this->conn->query($query);
+        $compuestos = [];
+        while($reg =  $result -> fetch_object()){
+            $compuestos[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_compuesto_residuos=$compuestos;
+    }
+
+
+    function getListaImpactoMedido(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre FROM impacto_medido e WHERE e.estado = 'A'";
+        $result = $this->conn->query($query);
+        $impacto = [];
+        while($reg =  $result -> fetch_object()){
+            $impacto[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_impacto_medido=$impacto;
+    }
 
 
 
 
+    public function getCatalogosInscripcion(){
+        $this->getListaMediosContacto();
+        $this->getListaDifusion();
+        $this->getListaPerfilesRecomendacion();
+        $this->getListaSectorOperativo();
+        $this->getListaEstructuraJuridicaSectorOP();
+        $this->getListaModeloOperativo();
+    }
+
+
+
+    public function getCatalogosProyecto(){
+        $this->getListaCategorias();
+        $this->getListaEscalas();
+        $this->getListaActividades();
+        $this->getListaAmenazas();
+        $this->getListaDebilidades();
+        $this->getListaODS();
+    }
+
+
+
+    public function getCatalagosImpactoSocial(){
+        $this->getListaGruposEtnicos();
+        $this->getListaGruposObjetivos();
+        $this->getListaGruposVulnerables();
+    }
+
+
+
+    public function getCatalogosSostenibilidadFinanciera(){
+        $this->getListaComposicionIngresos();
+        $this->getListaTipoInteresParticipar();
+        $this->getListaTipoCapacitacion();
+        $this->getListaTipoNetworking();
+        $this->getListaFasesNegocio();
+        $this->getListaFuentesCapital();
+    }
+
+
+
+    public function getCatalogosInnovacionTecnologia(){
+        $this->getListaTipoInnovacion();
+        $this->getListaTipoPatente();
+        $this->getListaTipoTecnologia();
+        $this->getListaTipoBlockchain();
+    }
+
+
+
+ public function getCatalogosRenewableEnergy(){
+        $this->getListaEnfoquesEnergia();
+        $this->getListaFuenteEnergia();
+        $this->getListaTipoIndustriaEnergia();
+    }
+
+
+
+    public function getCatalogosSustainableFinance(){
+        $this->getListaEnfoquesAmbientalesFinanzas();
+        $this->getListaTipoOrganizacion();
+        $this->getListaInstrumentoFinanciero();
+        $this->getListaInstitucionesFinancieras();
+        $this->getListaTipoFinanciamiento();
+    }
+
+
+
+    public function getCatalogosResilientArquitecture(){
+        $this->getListaOpcionesArquitectura();
+        $this->getListaRecursosArquitectura();
+        $this->getListaServiciosAmbientales();
+    }
+
+
+
+    public function getCatalogosTechStartup(){
+        $this->getListaEnfoquesStartup();
+        $this->getListaProductosServicios();
+        $this->getListaTiposCrecimiento();
+    }
+
+
+
+    public function getCatalogosHabitatEcosistem(){
+        $this->getListaEcosistemas();
+        $this->getListaObjetivosProyHabitat();
+        $this->getListaFuentesAguaDulce();
+        $this->getListaAdicionalidadesCarbono();
+        $this->getListaEnfoquesHabitat();
+        $this->getListaTiposEspecie();
+        $this->getListaTiposFauna();
+        $this->getListaTiposBosques();
+        $this->getListaClasesBosques();
+        $this->getListaEstrategiasIncendioForestal();
+        $this->getListaObjetivosAgua();
+        $this->getListaRecursoHidrico();
+        $this->getListaContaminanteAgua();
+        $this->getListaAmenzasEcosistema();
+        $this->getListaAccesosInformacion();
+    }
+
+
+
+    public function getCatalogosSustainableFashion(){
+        $this->getListaEnfoquesModa();
+        $this->getListaEnfoquesModa();
+        $this->getListaNormativaTextil();
+        $this->getListaPatronesCorte();
+        $this->getListaEmpaquesSostenibles();
+        $this->getListaZonasEnvio();
+        $this->getListaDistribucionProducto();
+        $this->getListaCanalesComunidad();
+    }
+
+
+
+    public function getCatalogosSustainableFarmingFoodProduction(){
+        $this->getListaEnfoquesProduccion();
+        $this->getListaElementosAmbientales();
+        $this->getListaEmpaquesAmbientales();
+    }
+
+
+
+    public function getCatalogosSustainableMobility(){
+        $this->getListaEnfoquesTransporte();
+        $this->getListaTipoTransporte();
+        $this->getListaTipoVehiculo();
+        $this->getListaObjetivosTransporte();
+        $this->getListaZonaOperativaTransporte();
+        $this->getListaEnfoquesLogistica();
+        $this->getListaPlataformasDigitales();
+        $this->getListaTiposInfraestuctura();
+    }
+
+
+
+    public function getCatalogosSustainableHumanDevelopment(){
+        $this->getListaEnfoquesDesarrolloHumano();
+        $this->getListaNivelEducativo();
+        $this->getListaEnfoqueEducativo();
+        $this->getListaTemaEducativo();
+        $this->getListaGruposMinoritarios();
+        $this->getListaEnfoquesIgualdad();
+        $this->getListaEnfoquesMujer();
+        $this->getListaEnfoqueSalud();
+        $this->getListaEnfoquePobreza();
+        $this->getListaEnfoqueHambre();
+        $this->getListaEnfoqueVivienda();
+        $this->getListaEnfoqueTrabajoDecente();
+        $this->getListaEnfoqueTrabajoVerde();
+        $this->getListaEnfoqueJusticia();
+        $this->getListaEnfoqueAgua();
+        $this->getListaPracticaAncestral();
+    }
+
+
+
+    public function getCatalogosSustainableAcademicResearch(){
+        $this->getListaEnfoquesInvestigacion();
+        $this->getListaFormasInvestigacion();
+        $this->getListaEtapasInvestigacion();
+        $this->getListaApoyosInvestigacion();
+        $this->getListaOngsInvestigacion();
+        $this->getListaEstadosPublicacionInvestigacion();
+        $this->getListaFuentesCapitales();
+    }
+
+
+
+    public function getCatalogosCircularEconomy(){
+        $this->getListaEnfoquesEconomia();
+        $this->getListaActividadesProyEconomia();
+        $this->getListaEnfoquesFabricacion();
+        $this->getListaEnfoquesRegeneracion();
+        $this->getListaAprovechamientoResiduos();
+        $this->getListaProcesosReciclajes();
+        $this->getListaProductoFinal();
+        $this->getListaActoresProyecto();
+        $this->getListaOrigenResiduos();
+        $this->getListaCompuestoResiduos();
+        $this->getListaImpactoMedido();
+    }
 
 
 

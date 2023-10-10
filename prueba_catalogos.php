@@ -4,9 +4,9 @@ require_once "modelos/Catalogos.php";
 $catalogos = new Catalogos();
 
 
-$catalogos->getListaProcesosReciclajes();
+$catalogos->getListaClasesBosques();
 
-var_dump($catalogos->lista_procesos_reciclajes);
+var_dump($catalogos->lista_clases_bosques);
 
 
 
