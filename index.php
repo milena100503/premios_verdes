@@ -2,10 +2,17 @@
 require_once "tcpdf/TCPDF-main/tcpdf.php";
 require_once "Utils.php";
 require_once "etiquetas.php";
-
+require_once "modelos/Catalogos.php";
 
 
 $utils = new Utils();
+$catalogo = new Catalogos();
+$catalogo->getCatalogosInscripcion();
+$catalogo->getCatalogosProyecto();
+
+
+
+
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'A4', true, 'UTF-8', false);
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
@@ -167,34 +174,15 @@ $tb_datos.= "<tbody>";
 $pdf->writeHTML($tb_datos);
 
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Correo Electrónico',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Teléfono',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Telegram',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Whatsapp',
-            ],
-         ];
-
        $selectedOptions = ['4'];
 
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_medios_contactos as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -212,50 +200,17 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p5));
 
 $pdf->SetXY(10,$pdf->GetY()+2);
 
-  $options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Redes Sociales de Premios Verdes',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Redes Sociales de Amigos/Organizaciones',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Medios de Comunicación',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Un Mail directo de Premios Verdes',
-            ],
-            [
-                'id' => '5',
-                'etiqueta' => 'Un Mail de Organización aliada',
-            ],
-            [
-                'id' => '6',
-                'etiqueta' => 'Publicidad',
-            ],
-            [
-                'id' => '7',
-                'etiqueta' => 'Recomendación',
-            ],
-            [
-                'id' => '8',
-                'etiqueta' => 'Ya es miembro de la comunidad Premios Verdes',
-            ],
-         ];
+
 
        $selectedOptions = ['6'];
 
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_difusion as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -273,34 +228,15 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p6));
 
 $pdf->SetXY(10,$pdf->GetY()+2);
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Privado',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Público',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Tercer Sector',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Alianza Público-Privado',
-            ],
-         ];
 
-       $selectedOptions = ['1'];
 
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_perfiles_recomendacion as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -315,34 +251,13 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p6_op));
 
 $pdf->SetXY(10,$pdf->GetY()+2);        
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Gran Empresa',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'PYME',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Microempresario',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Emprendedor',
-            ],
-         ];
-
-       $selectedOptions = ['2'];
-
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_sectores as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -359,58 +274,13 @@ $pdf->writeHTML($utils->format_question($etiquetas->inscripcion_p7));
 
 $pdf->SetXY(10,$pdf->GetY()+2); 
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Acuacultura',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Acuaponía',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Agricultura',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Agroecología',
-            ],
-            [
-                'id' => '5',
-                'etiqueta' => 'Agroforestería',
-            ],
-            [
-                'id' => '6',
-                'etiqueta' => 'Apicultura',
-            ],
-            [
-                'id' => '7',
-                'etiqueta' => 'Avicultura',
-            ],
-            [
-                'id' => '8',
-                'etiqueta' => 'Ganaderia',
-            ],
-            [
-                'id' => '9',
-                'etiqueta' => 'Pesca',
-            ],
-            [
-                'id' => '10',
-                'etiqueta' => 'Silvicultura',
-            ],
-         ];
-
-       $selectedOptions = [];
-
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_estructuras as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option[''] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -421,26 +291,16 @@ $options = [
 
 
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Extracción de Petroleo',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Minería',
-            ],
-         ];
 
        $selectedOptions = [];
 
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_modelos as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -451,189 +311,28 @@ $options = [
 
 
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Abonos yfertilizantes',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Accesorios',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Alimentos',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Aparatos Eléctricos',
-            ],
-            [
-                'id' => '5',
-                'etiqueta' => 'Artículos para el hogar',
-            ],
-            [
-                'id' => '6',
-                'etiqueta' => 'Bebidas(producción y/o embotellamiento)',
-            ],
-            [
-                'id' => '7',
-                'etiqueta' => 'Construcción/Diseño',
-            ],
-            [
-                'id' => '8',
-                'etiqueta' => 'Electrodomésticos',
-            ],
-            [
-                'id' => '9',
-                'etiqueta' => 'Energía',
-            ],
-            [
-                'id' => '10',
-                'etiqueta' => 'Joyería',
-            ],
-            [
-                'id' => '11',
-                'etiqueta' => 'Licores (producción y/ embotellamiento)',
-            ],
-            [
-                'id' => '12',
-                'etiqueta' => 'Materiales de construcción',
-            ],
-            [
-                'id' => '13',
-                'etiqueta' => 'Materiales e insummos basados del petróleo',
-            ],
-         ];
 
-       $selectedOptions = [];
-
-        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
-        $style = 'color: #FFFFFF; background-color: #000000;';
-
-        foreach ($options as $option) {
-            $id = $option['id'];
-            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
-        }
-
-        $lista_contactos .= '</table>';
-
-        //$pdf->SetY($pdf->GetY() + 5);
-        $pdf->writeHTML($lista_contactos);
 $pdf->AddPage();
 
-
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Moda/textiles',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Metalmecanica',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Procesamiento/empaquetamiento',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Reciclaje',
-            ],
-            [
-                'id' => '5',
-                'etiqueta' => 'Vehículos',
-            ],
-         ];
-
-       $selectedOptions = [];
-
-        $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
-        $style = 'color: #FFFFFF; background-color: #000000;';
-
-        foreach ($options as $option) {
-            $id = $option['id'];
-            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
-        }
-
-        $lista_contactos .= '</table>';
-
-        //$pdf->SetY($pdf->GetY() + 5);
-        $pdf->writeHTML($lista_contactos);
 
 
 $pdf->SetXY(0,$pdf->GetY()+1);   
 $pdf->writeHTML($utils->format_title($etiquetas->ingreso_proyecto_titulo));
 
+//CATEGORIAS
 $pdf->SetXY(10,$pdf->GetY()+2); 
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p1));
 
-$options = [
-            [
-                'id' => '1',
-                'etiqueta' => 'Acuacultura',
-            ],
-            [
-                'id' => '2',
-                'etiqueta' => 'Ac',
-            ],
-            [
-                'id' => '3',
-                'etiqueta' => 'Alimentos',
-            ],
-            [
-                'id' => '4',
-                'etiqueta' => 'Aparatos Eléctricos',
-            ],
-            [
-                'id' => '5',
-                'etiqueta' => 'Artículos para el hogar',
-            ],
-            [
-                'id' => '6',
-                'etiqueta' => 'Bebidas(producción y/o embotellamiento)',
-            ],
-            [
-                'id' => '7',
-                'etiqueta' => 'Construcción/Diseño',
-            ],
-            [
-                'id' => '8',
-                'etiqueta' => 'Electrodomésticos',
-            ],
-            [
-                'id' => '9',
-                'etiqueta' => 'Energía',
-            ],
-            [
-                'id' => '10',
-                'etiqueta' => 'Joyería',
-            ],
-            [
-                'id' => '11',
-                'etiqueta' => 'Licores (producción y/ embotellamiento)',
-            ],
-            [
-                'id' => '12',
-                'etiqueta' => 'Materiales de construcción',
-            ],
-            [
-                'id' => '13',
-                'etiqueta' => 'Materiales e insummos basados del petróleo',
-            ],
-         ];
 
        $selectedOptions = [];
 
         $lista_contactos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($options as $option) {
+        foreach ($catalogo->lista_categorias as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $lista_contactos .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+            $lista_contactos .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
         }
 
         $lista_contactos .= '</table>';
@@ -784,135 +483,52 @@ $pdf->writeHTML($utils->format_answer($r3));
 
 
 
+$pdf->AddPage();
 $pdf->SetXY(0,$pdf->GetY()+10);
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p10));
 
 
 $pdf->SetXY(10,$pdf->GetY()+2);
 
-$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
-$tb_datos.= "<tbody>";
+       $selectedOptions = [];
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Acuicultura</td>';
-$tb_datos.= "<td>Forestal</td>";
-$tb_datos.= "</tr>";
+        $lista_actividades = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Agricultura</td>';
-$tb_datos.= "<td>Ganadería</td>";
-$tb_datos.= "</tr>";
+        foreach ($catalogo->lista_actividades as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_actividades .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
+        }
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Alimentación</td>';
-$tb_datos.= "<td>Industria</td>";
-$tb_datos.= "</tr>";
+        $lista_actividades .= '</table>';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Ambiente</td>';
-$tb_datos.= "<td>Pesca</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Artesanías</td>';
-$tb_datos.= "<td>Biodiversidad</td>";
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Biodiversidad</td>';
-$tb_datos.= '<td>Salud</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Bosques</td>';
-$tb_datos.= '<td>Saneamiento</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Comercio</td>';
-$tb_datos.= '<td>Tecnologías de la información</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Construcción</td>';
-$tb_datos.= '<td>Tecnologías de las comunicaciones</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
-
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_actividades);
 
 $pdf->AddPage();
 $pdf->SetXY(10,$pdf->GetY()+2);
-
-$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
-$tb_datos.= "<tbody>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Cultura</td>';
-$tb_datos.= '<td>Transporte</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Desarrollo Humano</td>';
-$tb_datos.= '<td>Turismo</td>';
-$tb_datos.= "</tr>";
-
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Educación</td>';
-$tb_datos.= '<td>'.$utils->format_answer('Otro: ').'</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Energía</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
-
-
-
-$pdf->SetXY(10,$pdf->GetY()+2);
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p11));
 
-$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
-$tb_datos.= "<tbody>";
+$pdf->SetXY(10,$pdf->GetY()+2);
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Falta de información y experiencia en el desarrrollo de proyectos</td>';
-$tb_datos.= '<td>Poca información ciudadana</td>';
-$tb_datos.= "</tr>";
+       $selectedOptions = [];
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Falta integración de actores públicos privados en el sector</td>';
-$tb_datos.= '<td>Poca información publica sobre la problemática</td>';
-$tb_datos.= "</tr>";
+        $lista_actividades = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Informalidad del sector</td>';
-$tb_datos.= '<td>Poco acompañamiento institucional</td>';
-$tb_datos.= "</tr>";
+        foreach ($catalogo->lista_amenazas as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_actividades .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
+        }
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Leyes desactualizadas</td>';
-$tb_datos.= '<td>Poco apoyo de la empresa privada</td>';
-$tb_datos.= "</tr>";
+        $lista_actividades .= '</table>';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>'.$utils->format_answer('Otra: ').'</td>';
-$tb_datos.= '<td>Poco interés de los medios por difundir la problemática y/o la solución</td>';
-$tb_datos.= "</tr>";
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_actividades);
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Poca colaboración gubernamental</td>';
-$tb_datos.= "</tr>";
 
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
 
 
 //EXPLICA POR QUÉ ESCOGISTE ESTA AMENAZA?
@@ -924,39 +540,27 @@ $pdf->writeHTML($utils->format_answer(''));
 
 
 //PRINCIPAL DEBILIDAD
-$pdf->SetXY(0,$pdf->GetY()+10);
+
+$pdf->SetXY(10,$pdf->GetY()+2);
 $pdf->writeHTML($utils->format_question($etiquetas->ingreso_proyecto_p12));
 
-$tb_datos = '<table cellspacing="0" cellpadding="5" border="1" style="width: 100%; margin-left: auto; margin-right: auto; margin-top: 50%;">';
-$tb_datos.= "<tbody>";
+$pdf->SetXY(10,$pdf->GetY()+2);
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Acceso limitado a información relevante</td>';
-$tb_datos.= '<td>Falta de estandarización y automatización de proyectos</td>';
-$tb_datos.= "</tr>";
+       $selectedOptions = [];
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Falta de acceso a financiamiento</td>';
-$tb_datos.= '<td>Falta de información y experiencia en el desarrollo de proyectos</td>';
-$tb_datos.= "</tr>";
+        $lista_actividades = '<table cellspacing="0" cellpadding="5" border="1" style="width: 50%; margin-left: auto; margin-right: auto;">';
+        $style = 'color: #FFFFFF; background-color: #000000;';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Falta de alianzas estratégicas</td>';
-$tb_datos.= '<td>Falta de visión estratégica y liderazgo</td>';
-$tb_datos.= "</tr>";
+        foreach ($catalogo->lista_debilidades as $option) {
+            $id = $option['id'];
+            $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
+            $lista_actividades .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
+        }
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>Falta de desarrollo de capacidades y formación de talento interno</td>';
-$tb_datos.= '<td>Falta de información</td>';
-$tb_datos.= "</tr>";
+        $lista_actividades .= '</table>';
 
-$tb_datos.= "<tr>";
-$tb_datos.= '<td>'.$utils->format_answer('Otra: ').'</td>';
-$tb_datos.= "</tr>";
-
-$tb_datos.= "</tbody>";
-$tb_datos.= "</table>";
-$pdf->writeHTML($tb_datos);
+        //$pdf->SetY($pdf->GetY() + 5);
+        $pdf->writeHTML($lista_actividades);
 
 
 $pdf->AddPage();

@@ -259,7 +259,7 @@ class Catalogos extends Connection{
         $modelos = [];
         while($reg =  $result -> fetch_object()){
             $modelos[] = [
-                'id' => $reg->id_modelo_operativo,
+                'id' => $reg->id,
                 'nombre' => $reg->nombre
             ];
         }
@@ -302,7 +302,7 @@ class Catalogos extends Connection{
         $result = $this->conn->query($query);
         $actividades = []; 
         while($reg =  $result -> fetch_object()){
-            $escalas[] = [
+            $actividades[] = [
                 'id' => $reg->id,
                 'nombre' => $reg->nombre
             ];
