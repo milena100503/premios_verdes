@@ -4,9 +4,9 @@ require_once "modelos/Catalogos.php";
 $catalogos = new Catalogos();
 
 
-$catalogos->getListaEnfoquesAmbientalesFinanzas();
+$catalogos->getListaEcosistemas();
 
-var_dump($catalogos->lista_enfoques_ambientales_finanzas);
+var_dump($catalogos->lista_ecosistemas);
 
 
 

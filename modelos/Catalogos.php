@@ -973,7 +973,7 @@ class Catalogos extends Connection{
     }
 
 
-    function getListaAmenzasEcosistema(){
+    function getListaAmenazasEcosistema(){
         $variables = $this->variables();
         $query= "SELECT a.id id, a.$variables->nombre nombre from amenaza_ecosistema a where a.estado = 'A'";
         $result = $this->conn->query($query);
@@ -984,7 +984,7 @@ class Catalogos extends Connection{
                 'nombre' => $reg->nombre
             ];
         }
-        $this->lista_amenzas_ecosistemas=$ecosistemas;
+        $this->lista_amenazas_ecosistemas=$ecosistemas;
     }
 
 
@@ -1898,7 +1898,7 @@ class Catalogos extends Connection{
 
 
 
-    public function getCatalogosHabitatEcosistem(){
+    public function getCatalogosHabitatEcosystem(){
         $this->getListaEcosistemas();
         $this->getListaObjetivosProyHabitat();
         $this->getListaFuentesAguaDulce();
@@ -1912,7 +1912,7 @@ class Catalogos extends Connection{
         $this->getListaObjetivosAgua();
         $this->getListaRecursoHidrico();
         $this->getListaContaminanteAgua();
-        $this->getListaAmenzasEcosistema();
+        $this->getListaAmenazasEcosistema();
         $this->getListaAccesosInformacion();
     }
 

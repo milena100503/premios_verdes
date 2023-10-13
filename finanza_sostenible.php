@@ -31,16 +31,34 @@
     $pdf->SetXY(0, $pdf->GetY()+10);
     $pdf->writeHTML($utils->format_question($etiquetas->finanzas_sostenibles_p1));
 
-        
+        $options = [
+            [
+                'id' => '1',
+
+                //Identificación y evaluación de riesgos ambientales
+                'etiqueta' => $etiquetas->finanzas_sostenibles_p1_op1,
+            ],
+            [
+                'id' => '2',
+                //Identificación y evaluación de riesgos ambientales
+                'etiqueta' => $etiquetas->finanzas_sostenibles_p1_op2,
+            ],
+            [
+                'id' => '3',
+             //Creación de productos y servicios
+                'etiqueta' => $etiquetas->finanzas_sostenibles_p1_op3,
+            ],
+        ];
+
         $selectedOptions = [];
 
         $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
         $style = 'color: #FFFFFF; background-color: #000000;';
 
-        foreach ($catalogo->lista_enfoques_ambientales_finanzas as $option) {
+        foreach ($options as $option) {
             $id = $option['id'];
             $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-            $table .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
+            $table .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
         }
 
         $table .= '</table>';
@@ -113,7 +131,7 @@
 
     ];
 
-    $selectedOptions = [];
+    $selectedOptions = [''];
 
     $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
     $style = 'color: #FFFFFF; background-color: #000000;';
