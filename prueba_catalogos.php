@@ -4,9 +4,9 @@ require_once "modelos/Catalogos.php";
 $catalogos = new Catalogos();
 
 
-$catalogos->getListaEcosistemas();
+$catalogos->getListaTipoTextil();
 
-var_dump($catalogos->lista_ecosistemas);
+var_dump($catalogos->lista_tipo_textil);
 
 
 

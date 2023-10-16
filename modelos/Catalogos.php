@@ -1920,7 +1920,7 @@ class Catalogos extends Connection{
 
     public function getCatalogosSustainableFashion(){
         $this->getListaEnfoquesModa();
-        $this->getListaEnfoquesModa();
+        $this->getListaTipoTextil();
         $this->getListaNormativaTextil();
         $this->getListaPatronesCorte();
         $this->getListaEmpaquesSostenibles();
