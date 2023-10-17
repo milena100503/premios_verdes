@@ -1709,7 +1709,7 @@ class Catalogos extends Connection{
 
     function getListaTipoGestionResiduos(){
         $variables = $this->variables();
-        $query= "SELECT e.id, e.$variables->nombre nombre, e.id_padre FROM tipo_gestion_residuo e WHERE e.estado = 'A'";
+        $query= "SELECT e.id, e.$variables->nombre nombre, e.id_padre FROM tipo_gestion_residuo e WHERE e.estado = 'A' and ISNULL(e.id_padre)";
         $result = $this->conn->query($query);
         $gestion = [];
         while($reg =  $result -> fetch_object()){
@@ -1720,6 +1720,39 @@ class Catalogos extends Connection{
         }
         $this->lista_tipo_gestion_residuos=$gestion;
     }
+
+
+
+    function getListaTipoGestionResiduos1(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre, e.id_padre FROM tipo_gestion_residuo e WHERE e.estado = 'A' and e.id_padre='1'";
+        $result = $this->conn->query($query);
+        $gestion = [];
+        while($reg =  $result -> fetch_object()){
+            $gestion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_gestion_residuos1=$gestion;
+    }
+
+
+
+    function getListaTipoGestionResiduos3(){
+        $variables = $this->variables();
+        $query= "SELECT e.id, e.$variables->nombre nombre, e.id_padre FROM tipo_gestion_residuo e WHERE e.estado = 'A' and e.id_padre='3'";
+        $result = $this->conn->query($query);
+        $gestion = [];
+        while($reg =  $result -> fetch_object()){
+            $gestion[] = [
+                'id' => $reg->id,
+                'nombre' => $reg->nombre
+            ];
+        }
+        $this->lista_tipo_gestion_residuos3=$gestion;
+    }
+
 
 
     function getListaProcesosReciclajes(){
@@ -1981,6 +2014,9 @@ class Catalogos extends Connection{
         $this->getListaOngsInvestigacion();
         $this->getListaEstadosPublicacionInvestigacion();
         $this->getListaFuentesCapitales();
+        $this->getListaTipoInteresParticipar();
+        $this->getListaTipoCapacitacion();
+        $this->getListaTipoNetworking();
     }
 
 
@@ -1991,6 +2027,9 @@ class Catalogos extends Connection{
         $this->getListaEnfoquesFabricacion();
         $this->getListaEnfoquesRegeneracion();
         $this->getListaAprovechamientoResiduos();
+        $this->getListaTipoGestionResiduos();
+        $this->getListaTipoGestionResiduos1();
+        $this->getListaTipoGestionResiduos3();
         $this->getListaProcesosReciclajes();
         $this->getListaProductoFinal();
         $this->getListaActoresProyecto();

@@ -231,7 +231,7 @@
   $pdf->SetY( $pdf->GetY()+10);
   $pdf->writeHTML($utils->format_answer($demic->id_estado_publicacion));
 
-    $selectedOptions = ['2'];
+    $selectedOptions = [];
 
     $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
     $style = 'color: #FFFFFF; background-color: #000000;';
@@ -524,34 +524,15 @@
   $pdf->SetXY(0, $pdf->GetY()+10);
   $pdf->writeHTML($utils->format_question($etiquetas->sostenibilidad_financiera_p8));
 
-    $options = [
-        [
-            'id' => '1',
-            'etiqueta' => 'Difusion',
-        ],
-        [
-            'id' => '2',
-            'etiqueta' => 'Networking',
-        ],
-        [
-            'id' => '3',
-            'etiqueta' => 'Financiamiento',
-        ],
-        [
-            'id' => '4',
-            'etiqueta' => 'Asesoria',
-        ],
-    ];
-
     $selectedOptions = [$demic->intereses_participacion];
 
     $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
     $style = 'color: #FFFFFF; background-color: #000000;';
 
-    foreach ($options as $option) {
+    foreach ($catalogo->lista_tipo_interes_participar as $option) {
         $id = $option['id'];
         $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-        $table .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        $table .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
     }
 
     $table .= '</table>';
@@ -572,38 +553,15 @@
   $pdf->SetXY(0, $pdf->GetY()+5);
   $pdf->writeHTML($utils->format_question($etiquetas->sustainable_academic_p31_seleccione));
 
-    $options = [
-        [
-            'id' => '1',
-            'etiqueta' => 'tecnicas',
-        ],
-        [
-            'id' => '2',
-            'etiqueta' => 'Gerenciales y de negocio',
-        ],
-        [
-            'id' => '3',
-            'etiqueta' => 'Estructuración de proyecto',
-        ],
-        [
-            'id' => '4',
-            'etiqueta' => 'Asesoría financiera',
-        ],
-        [
-            'id' => '5',
-            'etiqueta' => $etiquetas->sustainable_academic_p31_cual,
-        ]
-    ];
-
     $selectedOptions = [ $sofi->capacitaciones ];
 
     $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
     $style = 'color: #FFFFFF; background-color: #000000;';
 
-    foreach ($options as $option) {
+    foreach ($catalogo->lista_tipo_capacitacion as $option) {
         $id = $option['id'];
         $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-        $table .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        $table .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
     }
 
     $table .= '</table>';
@@ -627,42 +585,15 @@
   $pdf->SetXY(0, $pdf->GetY()+5);
   $pdf->writeHTML($utils->format_indication($etiquetas->sustainable_academic_p32_seleccione));
 
-    $options = [
-        [
-            'id' => '1',
-            'etiqueta' => 'otros participantes',
-        ],
-        [
-            'id' => '2',
-            'etiqueta' => 'productos o servicios complementarios',
-        ],
-        [
-            'id' => '3',
-            'etiqueta' => 'potenciales inversionista',
-        ],
-        [
-            'id' => '4',
-            'etiqueta' => 'Potenciales líneas de crédito',
-        ],
-        [
-            'id' => '5',
-            'etiqueta' => 'Fondos no reembolsables',
-        ],
-        [
-            'id' => '6',
-            'etiqueta' => 'Incubadoras, aceleradoras, programas de mentoría',
-        ],
-    ];
-
     $selectedOptions = [ $sofi->netWorkings ];
 
     $table = '<table cellspacing="0" cellpadding="1" border="1" align="center" style="width: 50%; margin-left: auto; margin-right: auto;">';
     $style = 'color: #FFFFFF; background-color: #000000;';
 
-    foreach ($options as $option) {
+    foreach ($catalogo->lista_tipo_networking as $option) {
         $id = $option['id'];
         $selected = in_array($id, $selectedOptions) ? ' style="' . $style . '"' : '';
-        $table .= '<tr><td' . $selected . '>' . $option['etiqueta'] . '</td></tr>';
+        $table .= '<tr><td' . $selected . '>' . $option['nombre'] . '</td></tr>';
     }
 
     $table .= '</table>';
